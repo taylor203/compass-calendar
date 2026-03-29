@@ -2,8 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Compass â Family Calendar</title>
+<meta name="description" content="Family scheduling hub with color-coded members, voice commands, and clean design.">
+<meta name="theme-color" content="#2563eb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Compass">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,6 +34,8 @@
     color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   /* ââ Header ââ */
@@ -1338,6 +1347,15 @@ document.addEventListener('keydown', e => {
     document.getElementById('memberModal').classList.remove('open');
   }
 });
+
+// âââ PWA Service Worker âââ
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => console.log('SW registered:', reg.scope))
+      .catch(err => console.log('SW registration failed:', err));
+  });
+}
 </script>
 </body>
 </html>
